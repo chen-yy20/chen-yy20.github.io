@@ -6,6 +6,15 @@
     <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    
+    <!-- 黑夜模式初始化脚本 -->
+    <script>
+        // 在页面加载前检查并应用主题，避免闪烁
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
     {% include header.html %}
@@ -15,5 +24,42 @@
     </main>
     
     {% include footer.html %}
+
+    <!-- 黑夜模式切换脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.querySelector('.theme-icon');
+            
+            // 如果按钮不存在就退出（可能是某些页面没有header）
+            if (!themeToggle || !themeIcon) return;
+            
+            // 获取当前主题
+            function getCurrentTheme() {
+                return document.documentElement.getAttribute('data-theme') || 'light';
+            }
+            
+            // 更新图标
+            function updateIcon(theme) {
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+            
+            // 切换主题
+            function toggleTheme() {
+                const currentTheme = getCurrentTheme();
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateIcon(newTheme);
+            }
+            
+            // 初始化图标
+            updateIcon(getCurrentTheme());
+            
+            // 绑定点击事件
+            themeToggle.addEventListener('click', toggleTheme);
+        });
+    </script>
 </body>
 </html>

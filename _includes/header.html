@@ -4,10 +4,13 @@
             <h1 class="site-title">
                 <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
             </h1>
-            
             <nav class="site-nav">
                 <a href="{{ '/' | relative_url }}">首页</a>
-                <a href="{{ '/about' | relative_url }}">关于</a>
+                <a href="{{ '/about' | relative_url }}">关于我</a>
+                <!-- 黑夜模式切换按钮 -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+                    <span class="theme-icon">🌙</span>
+                </button>
             </nav>
         </div>
     </div>
