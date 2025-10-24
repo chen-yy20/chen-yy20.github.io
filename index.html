@@ -4,7 +4,7 @@ layout: default
 
 <div class="home">
     <section class="hero">
-        <h2>欢迎来到我的博客</h2>
+        <h2>== Welcome to Yu.Y's Citadel. ==</h2>
         <p>{{ site.description }}</p>
     </section>
 
@@ -22,6 +22,9 @@ layout: default
                     <time datetime="{{ post.date | date_to_xmlschema }}">
                         {{ post.date | date: "%Y年%m月%d日" }}
                     </time>
+                    {% if post.location %}
+                    <span class="post-location">📍 {{ post.location }}</span>
+                    {% endif %}
                 </div>
                 <div class="post-item-excerpt">
                     {{ post.excerpt | strip_html | truncate: 200 }}

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "欢迎使用 Jekyll！"
-date: 2024-10-24 12:00:00 +0800
+title: "Hello Jekyll！"
+date: 2020-1-1 12:00:00 +0800
 author: "作者姓名"
 tags: [Jekyll, 博客, 开始]
 ---

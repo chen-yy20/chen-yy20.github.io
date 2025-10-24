@@ -341,4 +341,14 @@ body {
     .post-nav {
         flex-direction: column;
     }
+    .post-location {
+    margin-left: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+    }
+
+    .post-location::before {
+        content: "📍 ";
+        margin-right: 0.3rem;
+    }
 }
