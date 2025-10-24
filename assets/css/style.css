@@ -381,7 +381,8 @@ body {
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
 }
 
-/* 黑夜模式变量定义 */
+/* 主题变量定义 */
+/* 确保主题变量定义完整 */
 :root {
     --bg-color: #fafafa;
     --card-bg: #ffffff;
@@ -403,7 +404,7 @@ body {
     --text-secondary: #a0aec0;
     --text-muted: #718096;
     --border-color: #4a5568;
-    --link-color: #63b3ed;
+    --link-color: #63b3ed; /* 黑夜模式下的蓝色 */
     --link-hover: #3182ce;
     --code-bg: #2d3748;
     --shadow: rgba(0, 0, 0, 0.3);
@@ -640,7 +641,7 @@ body {
 }
 
 
-/* 文章卡片可点击样式 */
+/* 文章卡片可点击样式 - 修复版本 */
 .post-item {
     background: var(--card-bg);
     border-radius: 12px;
@@ -648,6 +649,8 @@ body {
     transition: all 0.3s ease;
     overflow: hidden;
     position: relative;
+    /* 增加卡片间距 */
+    margin-bottom: 2rem;
 }
 
 .post-item:hover {
@@ -657,7 +660,7 @@ body {
 
 .post-item-link {
     display: block;
-    text-decoration: none;
+    text-decoration: none !important; /* 强制去除下划线 */
     color: inherit;
     padding: 2rem;
     height: 100%;
@@ -665,7 +668,18 @@ body {
 }
 
 .post-item-link:hover {
-    text-decoration: none;
+    text-decoration: none !important; /* 悬停时也不显示下划线 */
+}
+
+.post-item-link:focus {
+    text-decoration: none !important; /* 焦点时也不显示下划线 */
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+/* 确保链接内的所有元素都不显示下划线 */
+.post-item-link * {
+    text-decoration: none !important;
 }
 
 /* 确保链接覆盖整个卡片 */
@@ -686,14 +700,15 @@ body {
 .post-item-title {
     font-size: 1.4rem;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--text-color) !important; /* 使用CSS变量，跟随主题变化 */
     margin: 0 0 0.5rem 0;
     line-height: 1.4;
     transition: color 0.3s ease;
+    text-decoration: none !important; /* 确保标题没有下划线 */
 }
 
 .post-item:hover .post-item-title {
-    color: var(--link-color);
+    color: var(--link-color) !important; /* 悬停时使用主题色 */
 }
 
 .post-item-meta {
@@ -727,6 +742,7 @@ body {
     border-radius: 20px;
     font-size: 0.8rem;
     transition: all 0.3s ease;
+    text-decoration: none !important; /* 标签也不显示下划线 */
 }
 
 .post-item:hover .tag {
@@ -734,19 +750,24 @@ body {
     color: white;
 }
 
-/* 网格布局 */
+/* 网格布局 - 增加间距 */
 .posts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    gap: 2.5rem; /* 增加网格间距 */
     margin: 2rem 0;
+}
+
+/* 为单列布局额外增加间距 */
+.posts-grid .post-item:not(:last-child) {
+    margin-bottom: 1rem; /* 在网格间距基础上再加间距 */
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
     .posts-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 2rem; /* 移动端也保持足够间距 */
     }
     
     .post-item-link {
@@ -756,6 +777,11 @@ body {
     .post-item-title {
         font-size: 1.2rem;
     }
+    
+    /* 移动端单独的间距控制 */
+    .posts-grid .post-item:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
 }
 
 /* 鼠标悬停时的指针样式 */
@@ -763,10 +789,13 @@ body {
     cursor: pointer;
 }
 
-/* 焦点样式，提升可访问性 */
-.post-item-link:focus {
-    outline: 2px solid var(--link-color);
-    outline-offset: 2px;
+/* 确保所有链接相关元素都没有默认链接样式 */
+a.post-item-link,
+a.post-item-link:visited,
+a.post-item-link:hover,
+a.post-item-link:active {
+    text-decoration: none !important;
+    color: inherit;
 }
 
 /* 分页样式更新 */
