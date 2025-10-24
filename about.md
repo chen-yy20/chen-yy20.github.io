@@ -1,10 +1,3 @@
-**about.md**
-```markdown
----
-layout: default
-title: 关于我
----
-
 <div class="container">
     <div class="post">
         <header class="post-header">
@@ -17,17 +10,16 @@ title: 关于我
             <h2>联系方式</h2>
             <p>如果你想联系我，可以通过以下方式：</p>
             <ul>
-                <li>邮箱：your-email@example.com</li>
-                <li>GitHub：<a href="https://github.com/yourusername">@yourusername</a></li>
+                <li>邮箱：892016739@qq.com</li>
+                <li>GitHub：<a href="https://github.com/chen-yy20">@chen-yy20</a></li>
             </ul>
             
-            <h2>技能</h2>
-            <p>我的技术栈包括：</p>
+            <h2>但是</h2>
+            <p>你想看到怎样的我呢？</p>
             <ul>
-                <li>前端开发</li>
-                <li>后端开发</li>
-                <li>其他技能...</li>
+                <li>我想记录怎样的我呢？</li>
             </ul>
+            <p>在四年后一个普通的冬日，我重新打扫了这个地方。我留下的痕迹不多，却随着时间的流逝逐渐发出彩色的光，我逐渐明白了这个网站的意义。</p>
         </div>
     </div>
 </div>
