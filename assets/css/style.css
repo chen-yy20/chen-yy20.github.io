@@ -638,3 +638,176 @@ body {
         margin-left: 0.5rem;
     }
 }
+
+
+/* 文章卡片可点击样式 */
+.post-item {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.post-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px var(--shadow-hover);
+}
+
+.post-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 2rem;
+    height: 100%;
+    position: relative;
+}
+
+.post-item-link:hover {
+    text-decoration: none;
+}
+
+/* 确保链接覆盖整个卡片 */
+.post-item-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.post-item-header {
+    margin-bottom: 1rem;
+}
+
+.post-item-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.post-item:hover .post-item-title {
+    color: var(--link-color);
+}
+
+.post-item-meta {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.post-location {
+    margin-left: 1rem;
+    color: var(--text-secondary);
+}
+
+.post-item-excerpt {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.post-item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tag {
+    background: var(--code-bg);
+    color: var(--text-secondary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.post-item:hover .tag {
+    background: var(--link-color);
+    color: white;
+}
+
+/* 网格布局 */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .posts-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .post-item-link {
+        padding: 1.5rem;
+    }
+    
+    .post-item-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* 鼠标悬停时的指针样式 */
+.post-item {
+    cursor: pointer;
+}
+
+/* 焦点样式，提升可访问性 */
+.post-item-link:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+/* 分页样式更新 */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px var(--shadow);
+}
+
+.pagination a {
+    text-decoration: none;
+    color: var(--link-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    background: var(--code-bg);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.pagination a:hover {
+    background: var(--link-color);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.pagination-info {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.no-posts {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 3rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px var(--shadow);
+}

@@ -9,48 +9,63 @@ layout: default
     </section>
 
     <section class="posts">
-        <h3>最新文章</h3>
+        <h3>文章</h3>
         
         {% if site.posts.size > 0 %}
-        <div class="post-list">
-            {% for post in paginator.posts %}
-            <article class="post-item">
-                <h4 class="post-item-title">
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                </h4>
-                <div class="post-item-meta">
-                    <time datetime="{{ post.date | date_to_xmlschema }}">
-                        {{ post.date | date: "%Y年%m月%d日" }}
-                    </time>
-                    {% if post.location %}
-                    <span class="post-location">📍 {{ post.location }}</span>
-                    {% endif %}
-                </div>
-                <div class="post-item-excerpt">
-                    {{ post.excerpt | strip_html | truncate: 200 }}
-                </div>
-            </article>
-            {% endfor %}
-        </div>
-
-        <!-- 分页导航 -->
-        {% if paginator.total_pages > 1 %}
-        <nav class="pagination">
-            {% if paginator.previous_page %}
-            <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-prev">上一页</a>
-            {% endif %}
+            <div class="posts-grid">
+                {% for post in paginator.posts %}
+                <article class="post-item">
+                    <a href="{{ post.url | relative_url }}" class="post-item-link">
+                        <header class="post-item-header">
+                            <h4 class="post-item-title">{{ post.title }}</h4>
+                            <div class="post-item-meta">
+                                <time datetime="{{ post.date | date_to_xmlschema }}">
+                                    {{ post.date | date: "%Y年%m月%d日" }}
+                                </time>
+                                {% if post.location %}
+                                <span class="post-location">📍 {{ post.location }}</span>
+                                {% endif %}
+                            </div>
+                        </header>
+                        
+                        <div class="post-item-excerpt">
+                            {{ post.excerpt | strip_html | truncate: 200 }}
+                        </div>
+                        
+                        {% if post.tags %}
+                        <div class="post-item-tags">
+                            {% for tag in post.tags %}
+                            <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </a>
+                </article>
+                {% endfor %}
+            </div>
             
-            <span class="pagination-info">
-                第 {{ paginator.page }} 页，共 {{ paginator.total_pages }} 页
-            </span>
-            
-            {% if paginator.next_page %}
-            <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-next">下一页</a>
+            <!-- 分页导航 -->
+            {% if paginator.total_pages > 1 %}
+            <nav class="pagination">
+                {% if paginator.previous_page %}
+                <a href="{% if paginator.previous_page == 1 %}{{ '/' | relative_url }}{% else %}{{ paginator.previous_page_path | relative_url }}{% endif %}" class="prev">
+                    ← 上一页
+                </a>
+                {% endif %}
+                
+                <span class="pagination-info">
+                    第 {{ paginator.page }} 页，共 {{ paginator.total_pages }} 页
+                </span>
+                
+                {% if paginator.next_page %}
+                <a href="{{ paginator.next_page_path | relative_url }}" class="next">
+                    下一页 →
+                </a>
+                {% endif %}
+            </nav>
             {% endif %}
-        </nav>
-        {% endif %}
         {% else %}
-        <p>暂无文章。</p>
+            <p class="no-posts">Nothing Left...</p>
         {% endif %}
     </section>
 </div>
