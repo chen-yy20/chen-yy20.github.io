@@ -1,0 +1,8 @@
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. 所有权利保留。</p>
+        {% if site.email %}
+        <p>联系邮箱：<a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+        {% endif %}
+    </div>
+</footer>
