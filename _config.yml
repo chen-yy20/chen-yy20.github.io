@@ -1,6 +1,6 @@
-title: Here with Yu.Y
-email: 892016730@qq.com
-description: 自由而闭塞，孤独而热烈。
+title: "Here with Yu.Y"
+email: "892016730@qq.com"
+description: "自由而闭塞，孤独而热烈。"
 baseurl: ""
 url: "https://chen-yy20.github.io"
 
@@ -26,3 +26,5 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor/
+  - README.md
+  - .gitignore
