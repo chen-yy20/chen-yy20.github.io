@@ -2,7 +2,18 @@
     <div class="container">
         <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. 所有权利保留。</p>
         {% if site.email %}
-        <p>联系邮箱：<a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+        <p>联系我：<a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
         {% endif %}
+        
+        <!-- 添加网站统计 -->
+        <div class="site-stats">
+            <span id="busuanzi_container_site_pv">
+                👁️ 总访问 <span id="busuanzi_value_site_pv"></span> 次
+            </span>
+            <span class="stats-separator">|</span>
+            <span id="busuanzi_container_site_uv">
+                👤 访客 <span id="busuanzi_value_site_uv"></span> 人
+            </span>
+        </div>
     </div>
 </footer>
