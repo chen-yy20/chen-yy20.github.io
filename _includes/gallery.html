@@ -1,0 +1,11 @@
+<div class="gallery{% if include.class %} {{ include.class }}{% endif %}">
+  {% for image in include.images %}
+    <div class="gallery-item">
+      {% include image.html 
+         path=image.path 
+         alt=image.alt 
+         caption=image.caption 
+         class="gallery-image" %}
+    </div>
+  {% endfor %}
+</div>

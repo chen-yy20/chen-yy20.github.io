@@ -10,6 +10,7 @@ highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-imagemagick
 
 # Pagination
 paginate: 10
@@ -31,3 +32,8 @@ exclude:
 
 # Google Analytics
 google_analytics: G-4H97N6X3TM  # 替换为你的测量ID
+
+# 图片相关
+image_path: "assets/images"
+image_optimization: true
+
