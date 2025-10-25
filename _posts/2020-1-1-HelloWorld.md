@@ -2,9 +2,13 @@
 layout: post
 title: "Hello Jekyll！"
 date: 2020-1-1 12:00:00 +0800
-author: "作者姓名"
-tags: [Jekyll, 博客, 开始]
+author: "克老师"
+tags: [开始]
 ---
+
+> Claude-Sonnet-4是世界上最好的编程语言！
+
+事实上是，0个人想知道怎么写html和css，有力气写完这些，也没力气写文章了。
 
 这是你的第一篇 Jekyll 博客文章！
 
