@@ -6,7 +6,7 @@ title: 关于我
 {% include image.html 
    path="general/me.png" 
    alt="about" 
-   class="image-left image-small" 
+   class="image-small" 
    style="max-width:180px" %}
 
 陈宇阳，2001年生，广东广州人。  
