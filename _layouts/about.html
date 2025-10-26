@@ -1,0 +1,38 @@
+---
+layout: default
+---
+<style>
+  /* 仅 about 页面生效的居中样式 */
+  .about-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 3rem auto;
+    max-width: 600px;
+  }
+  /* 正文恢复左对齐 */
+  .about-content p {
+    text-align: left;
+    margin: .5rem 0;
+  }
+  /* 给图片再多一点留白 */
+  .about-wrap .image-small {
+    margin: 1.5rem;
+  }
+</style>
+
+<div class="about-wrap">
+  <!-- 图片 -->
+  {% include image.html
+     path="general/me.png"
+     alt="about"
+     class="image-small"
+     style="max-width:180px"
+  %}
+
+  <!-- 正文 -->
+  <div class="about-content">
+    {{ content }}
+  </div>
+</div>
