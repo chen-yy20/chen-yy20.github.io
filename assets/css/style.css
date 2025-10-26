@@ -169,7 +169,7 @@ a.post-item-link:hover { text-decoration: none; }
 .image-container img:hover { transform: scale(1.02); }
 .image-container figcaption { margin-top: .5rem; font-style: italic; color: var(--text-secondary); font-size: .9rem; }
 
-.image-small { max-width: 300px; }
+.image-small { max-width: 300px; margin: 1.5rem;}
 .image-medium { max-width: 600px; }
 .image-large { max-width: 100%; }
 
