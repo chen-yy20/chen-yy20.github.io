@@ -169,11 +169,11 @@ a.post-item-link:hover { text-decoration: none; }
 .image-container img:hover { transform: scale(1.02); }
 .image-container figcaption { margin-top: .5rem; font-style: italic; color: var(--text-secondary); font-size: .9rem; }
 
-.image-small { max-width: 300px; margin: 1.5rem;}
+.image-small { max-width: 300px;}
 .image-medium { max-width: 600px; }
 .image-large { max-width: 100%; }
 
-.image-left { float: left; margin: 0 1rem 1rem 0; }
+.image-left { float: left; margin: 1rem 1.5rem 1.5rem 1rem; }
 .image-right { float: right; margin: 0 0 1rem 1rem; }
 .image-center { display: block; margin: 0 auto; }
 

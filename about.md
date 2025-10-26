@@ -7,7 +7,7 @@ title: 关于我
    path="general/me.png" 
    alt="about" 
    class="image-left image-small" 
-   style="max-width:200px" %}
+   style="max-width:180px" %}
 
 陈宇阳，2001年生，广东广州人。  
 辗转上海与北京。
