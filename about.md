@@ -3,6 +3,8 @@ layout: about
 title: 关于我
 ---
 
+# 关于我
+
 {% include image.html 
    path="general/me.png" 
    alt="about" 
