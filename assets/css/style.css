@@ -197,3 +197,54 @@ a.post-item-link:hover { text-decoration: none; }
   .gallery { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
   .image-left, .image-right { float: none; margin: 1rem 0; }
 }
+
+/* ===== 13. 评论区样式 ===== */
+.comments-section {
+  max-width: 800px;
+  margin: 3rem auto 0;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--link-color);
+}
+
+.comments-section h3 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.giscus-container {
+  transition: opacity 0.3s ease;
+}
+
+/* giscus主题适配 */
+.giscus {
+  color-scheme: light;
+}
+
+[data-theme="dark"] .giscus {
+  color-scheme: dark;
+}
+
+/* 确保giscus iframe在容器内正确显示 */
+.giscus-container iframe {
+  width: 100% !important;
+  border: none;
+  border-radius: var(--radius);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .comments-section {
+    margin: 2rem 1rem 0;
+    padding: 1.5rem;
+  }
+  
+  .comments-section h3 {
+    font-size: 1.3rem;
+  }
+}

@@ -1,0 +1,72 @@
+<div class="comments-section">
+    <h3>评论</h3>
+    <div id="giscus-container" class="giscus-container">
+        <script src="https://giscus.app/client.js"
+                data-repo="chen-yy20/chen-yy20.github.io"
+                data-repo-id="R_kgDOGY4lhQ"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOGY4lhc4CxFMR"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取当前主题
+    function getCurrentTheme() {
+        return document.documentElement.getAttribute('data-theme') || 'light';
+    }
+    
+    // 获取giscus主题名称
+    function getGiscusTheme(theme) {
+        return theme === 'dark' ? 'dark' : 'light';
+    }
+    
+    // 更新giscus主题
+    function updateGiscusTheme(theme) {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (iframe) {
+            iframe.contentWindow.postMessage({
+                giscus: {
+                    setConfig: {
+                        theme: getGiscusTheme(theme)
+                    }
+                }
+            }, 'https://giscus.app');
+        }
+    }
+    
+    // 初始化主题（等待giscus加载完成后设置正确主题）
+    setTimeout(() => {
+        updateGiscusTheme(getCurrentTheme());
+    }, 1000);
+    
+    // 监听主题切换事件
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            // 延迟一点时间等待主题切换完成
+            setTimeout(() => {
+                updateGiscusTheme(getCurrentTheme());
+            }, 100);
+        });
+    }
+    
+    // 监听存储变化（如果在其他标签页切换了主题）
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'theme') {
+            updateGiscusTheme(e.newValue);
+        }
+    });
+});
+</script>
