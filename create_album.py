@@ -10,10 +10,11 @@ from pathlib import Path
 # 图像处理库
 try:
     from PIL import Image
+    from PIL.ExifTags import TAGS
     PIL_AVAILABLE = True
 except ImportError:
     PIL_AVAILABLE = False
-    print("警告: 未安装PIL/Pillow库，无法压缩图片")
+    print("警告: 未安装PIL/Pillow库，无法压缩图片和提取EXIF")
 
 def sanitize_filename(filename):
     """清理文件名"""
@@ -21,6 +22,29 @@ def sanitize_filename(filename):
     name = re.sub(r'[^\w\u4e00-\u9fff-]', '_', name)
     name = re.sub(r'_+', '_', name).strip('_')
     return name
+
+def get_photo_datetime(image_path):
+    """提取照片拍摄时间"""
+    if not PIL_AVAILABLE:
+        return ""
+    
+    try:
+        with Image.open(image_path) as img:
+            exif_data = img._getexif()
+            if exif_data:
+                for tag_id, value in exif_data.items():
+                    tag = TAGS.get(tag_id, tag_id)
+                    if tag == 'DateTime' or tag == 'DateTimeOriginal':
+                        # EXIF时间格式: 2024:11:06 14:30:22
+                        try:
+                            dt = datetime.strptime(value, '%Y:%m:%d %H:%M:%S')
+                            return dt.strftime('%Y年%m月%d日 %H:%M')
+                        except:
+                            return value
+    except:
+        pass
+    
+    return ""
 
 def compress_image(input_path, output_path, max_width=1920, quality=85):
     """压缩图片"""
@@ -71,7 +95,8 @@ def create_album():
     
     # 生成基本信息
     date_str = datetime.now().strftime('%Y-%m-%d')
-    album_slug = f"{source_dir.split("/")[-1]}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    folder_name = source_path.name
+    album_slug = f"{folder_name}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     
     # 创建目录
     project_root = Path.cwd()
@@ -86,6 +111,11 @@ def create_album():
     # 处理照片
     photos_data = []
     for i, img_file in enumerate(image_files):
+        # 提取拍摄时间
+        photo_datetime = get_photo_datetime(img_file)
+        if photo_datetime:
+            print(f"  提取时间: {photo_datetime}")
+        
         clean_name = sanitize_filename(img_file.name)
         new_filename = f"{i+1:02d}_{clean_name}.jpg"
         target_file = albums_dir / new_filename
@@ -93,7 +123,10 @@ def create_album():
         compress_image(img_file, target_file)
         
         relative_path = f"/assets/images/albums/{album_slug}/{new_filename}"
-        photos_data.append(relative_path)
+        photos_data.append({
+            'path': relative_path,
+            'caption': photo_datetime if photo_datetime else ""
+        })
         
         print(f"  {i+1}/{len(image_files)}: {new_filename}")
     
@@ -101,19 +134,18 @@ def create_album():
     md_content = f"""---
 title: ""
 description: ""
-cover_image: "{photos_data[0]}"
+cover_image: "{photos_data[0]['path']}"
 date: {date_str}
 location: ""
 photographer: ""
 tags: []
 photos:"""
     
-    for photo_path in photos_data:
+    for photo_data in photos_data:
         md_content += f"""
-  - image: "{photo_path}"
-    caption: ""
-    description: ""
-    tags: []"""
+  - image: "{photo_data['path']}"
+    caption: "{photo_data['caption']}"
+    """
     
     md_content += """
 ---
