@@ -46,17 +46,20 @@ def get_photo_datetime(image_path):
     
     return ""
 
-def compress_image(input_path, output_path, max_width=1920, quality=85):
-    """压缩图片"""
+def compress_to_webp(input_path, output_path, max_width=1920, quality=80):
+    """压缩并转换为WebP格式"""
     if not PIL_AVAILABLE:
-        shutil.copy2(input_path, output_path)
-        return
+        print("无法转换为WebP，复制原文件")
+        shutil.copy2(input_path, output_path.with_suffix('.jpg'))
+        return output_path.with_suffix('.jpg')
     
     try:
         with Image.open(input_path) as img:
+            # 转换为RGB模式（WebP需要）
             if img.mode in ('RGBA', 'P'):
                 img = img.convert('RGB')
             
+            # 调整尺寸
             width, height = img.size
             if width > max_width:
                 ratio = max_width / width
@@ -64,11 +67,34 @@ def compress_image(input_path, output_path, max_width=1920, quality=85):
                 new_height = int(height * ratio)
                 img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
             
-            img.save(output_path, 'JPEG', quality=quality, optimize=True)
+            # 保存为WebP格式
+            webp_path = output_path.with_suffix('.webp')
+            img.save(webp_path, 'WEBP', quality=quality, optimize=True)
+            
+            return webp_path
             
     except Exception as e:
-        print(f"压缩失败，使用原文件: {e}")
-        shutil.copy2(input_path, output_path)
+        print(f"转换WebP失败，使用JPEG: {e}")
+        try:
+            with Image.open(input_path) as img:
+                if img.mode in ('RGBA', 'P'):
+                    img = img.convert('RGB')
+                
+                width, height = img.size
+                if width > max_width:
+                    ratio = max_width / width
+                    new_width = max_width
+                    new_height = int(height * ratio)
+                    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                
+                jpg_path = output_path.with_suffix('.jpg')
+                img.save(jpg_path, 'JPEG', quality=85, optimize=True)
+                return jpg_path
+        except:
+            # 最后备选方案：直接复制
+            fallback_path = output_path.with_suffix('.jpg')
+            shutil.copy2(input_path, fallback_path)
+            return fallback_path
 
 def create_album():
     # 获取照片目录
@@ -81,7 +107,7 @@ def create_album():
         return False
     
     # 获取图片文件
-    image_extensions = {'.jpg', '.jpeg', '.JPG', '.JPEG'}
+    image_extensions = {'.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.PNG', '.webp', '.WEBP'}
     image_files = []
     for ext in image_extensions:
         image_files.extend(source_path.glob(f'*{ext}'))
@@ -117,18 +143,20 @@ def create_album():
             print(f"  提取时间: {photo_datetime}")
         
         clean_name = sanitize_filename(img_file.name)
-        new_filename = f"{i+1:02d}_{clean_name}.jpg"
-        target_file = albums_dir / new_filename
+        base_filename = f"{i+1:02d}_{clean_name}"
+        target_file = albums_dir / base_filename
         
-        compress_image(img_file, target_file)
+        # 压缩并转换为WebP
+        final_file = compress_to_webp(img_file, target_file)
         
-        relative_path = f"/assets/images/albums/{album_slug}/{new_filename}"
+        # 获取相对路径
+        relative_path = f"/assets/images/albums/{album_slug}/{final_file.name}"
         photos_data.append({
             'path': relative_path,
             'caption': photo_datetime if photo_datetime else ""
         })
         
-        print(f"  {i+1}/{len(image_files)}: {new_filename}")
+        print(f"  {i+1}/{len(image_files)}: {final_file.name}")
     
     # 生成MD文件
     md_content = f"""---
