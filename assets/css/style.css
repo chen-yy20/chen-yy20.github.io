@@ -248,3 +248,433 @@ a.post-item-link:hover { text-decoration: none; }
     font-size: 1.3rem;
   }
 }
+
+/* ===== 14. 摄影页面样式 ===== */
+
+/* --- 14.1 摄影页面头部 --- */
+.photography-header {
+  text-align: center;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: var(--radius);
+  margin-bottom: 3rem;
+}
+
+.photography-header h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.photography-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* --- 14.2 照片集网格 --- */
+.photography-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- 14.3 照片集卡片 --- */
+.album-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.album-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+}
+
+.album-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.album-cover {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.album-card:hover .album-cover img {
+  transform: scale(1.1);
+}
+
+/* --- 14.4 照片集信息覆盖层 --- */
+.album-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: #fff;
+  padding: 2rem 1.5rem 1.5rem;
+  transform: translateY(60%);
+  transition: transform 0.3s ease;
+}
+
+.album-card:hover .album-overlay {
+  transform: translateY(0);
+}
+
+.album-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.album-desc {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.album-count {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  background: rgba(255,255,255,0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+/* --- 14.5 响应式调整 --- */
+@media (max-width: 768px) {
+  .photography-header {
+    padding: 2rem 1rem;
+  }
+  
+  .photography-header h1 {
+    font-size: 2rem;
+  }
+  
+  .photography-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .album-cover {
+    height: 220px;
+  }
+  
+  .album-overlay {
+    transform: translateY(0);
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+  }
+}
+
+/* ===== 15. 照片集详情页面样式 ===== */
+
+/* --- 15.1 照片集头部 --- */
+.album-detail {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.album-header {
+  margin-bottom: 3rem;
+}
+
+.album-breadcrumb {
+  margin-bottom: 2rem;
+}
+
+.album-breadcrumb a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.album-breadcrumb a:hover {
+  color: var(--link-hover);
+}
+
+.album-info {
+  text-align: center;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.album-detail .album-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.album-meta {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.album-meta time,
+.album-meta .photo-count {
+  background: var(--tag-bg);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.album-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- 15.2 照片集内容描述 --- */
+.album-content {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 3rem;
+  line-height: 1.8;
+  box-shadow: var(--shadow);
+}
+
+/* --- 15.3 照片展示网格 --- */
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.photo-item {
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.photo-item:hover img {
+  transform: scale(1.05);
+}
+
+.photo-info {
+  padding: 1rem;
+}
+
+.photo-caption {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.photo-location {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* --- 15.4 灯箱样式 --- */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.lightbox-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-close:hover {
+  opacity: 0.7;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  z-index: 1001;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-prev {
+  left: 2rem;
+}
+
+.lightbox-next {
+  right: 2rem;
+}
+
+#lightbox-image {
+  max-width: 90%;
+  max-height: 80%;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.lightbox-info {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  max-width: 80%;
+}
+
+.lightbox-info p {
+  margin: 0.5rem 0;
+}
+
+#lightbox-counter {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* --- 15.5 响应式调整 --- */
+@media (max-width: 768px) {
+  .album-detail .album-title {
+    font-size: 2rem;
+  }
+  
+  .album-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .photo-gallery {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .photo-item img {
+    height: 200px;
+  }
+  
+  .album-content {
+    padding: 1.5rem;
+  }
+  
+  .lightbox-content {
+    padding: 1rem;
+  }
+  
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+  
+  .lightbox-prev {
+    left: 1rem;
+  }
+  
+  .lightbox-next {
+    right: 1rem;
+  }
+  
+  .lightbox-close {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  #lightbox-image {
+    max-width: 95%;
+    max-height: 75%;
+  }
+  
+  .lightbox-info {
+    bottom: 1rem;
+    max-width: 90%;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-detail {
+    padding: 0 0.5rem;
+  }
+  
+  .album-info {
+    padding: 1.5rem 0;
+  }
+  
+  .album-detail .album-title {
+    font-size: 1.8rem;
+  }
+}

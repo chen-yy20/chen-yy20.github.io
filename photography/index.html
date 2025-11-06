@@ -1,0 +1,27 @@
+---
+layout: default
+title: 摄影作品
+permalink: /photography/
+---
+
+<div class="photography-header">
+    <h1>摄影作品</h1>
+    <p>记录生活中的美好瞬间</p>
+</div>
+
+<div class="photography-grid">
+    {% for album in site.photo_albums %}
+    <article class="album-card">
+        <a href="{{ album.url | relative_url }}" class="album-link">
+            <div class="album-cover">
+                <img src="{{ album.cover_image }}" alt="{{ album.title }}" loading="lazy">
+                <div class="album-overlay">
+                    <h3 class="album-title">{{ album.title }}</h3>
+                    <p class="album-desc">{{ album.description }}</p>
+                    <span class="album-count">{{ album.photos.size }} 张照片</span>
+                </div>
+            </div>
+        </a>
+    </article>
+    {% endfor %}
+</div>

@@ -1,0 +1,154 @@
+---
+layout: default
+---
+
+<article class="album-detail">
+    <!-- 照片集头部信息 -->
+    <header class="album-header">
+        <nav class="album-breadcrumb">
+            <a href="{{ '/photography' | relative_url }}">← 返回摄影</a>
+        </nav>
+        
+        <div class="album-info">
+            <h1 class="album-title">{{ page.title }}</h1>
+            <div class="album-meta">
+                <time datetime="{{ page.date | date_to_xmlschema }}">
+                    {{ page.date | date: "%Y年%m月%d日" }}
+                </time>
+                <span class="photo-count">{{ page.photos.size }} 张照片</span>
+            </div>
+            {% if page.description %}
+            <p class="album-description">{{ page.description }}</p>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- 照片集内容描述 -->
+    {% if content and content != empty %}
+    <div class="album-content">
+        {{ content }}
+    </div>
+    {% endif %}
+
+    <!-- 照片展示区域 -->
+    <div class="photo-gallery">
+        {% for photo in page.photos %}
+        <div class="photo-item" data-index="{{ forloop.index0 }}">
+            <img src="{{ photo.image }}" 
+                 alt="{{ photo.caption | default: page.title }}"
+                 loading="lazy"
+                 onclick="openLightbox({{ forloop.index0 }})">
+            
+            {% if photo.caption or photo.location %}
+            <div class="photo-info">
+                {% if photo.caption %}
+                <p class="photo-caption">{{ photo.caption }}</p>
+                {% endif %}
+                {% if photo.location %}
+                <p class="photo-location">📍 {{ photo.location }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</article>
+
+<!-- 灯箱模态框 -->
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-prev" onclick="prevPhoto()">&#8249;</button>
+        <button class="lightbox-next" onclick="nextPhoto()">&#8250;</button>
+        
+        <img id="lightbox-image" src="" alt="">
+        
+        <div class="lightbox-info">
+            <p id="lightbox-caption"></p>
+            <p id="lightbox-location"></p>
+            <span id="lightbox-counter"></span>
+        </div>
+    </div>
+</div>
+
+<!-- 灯箱JavaScript -->
+<script>
+let currentPhotoIndex = 0;
+const photos = [
+    {% for photo in page.photos %}
+    {
+        image: "{{ photo.image }}",
+        caption: "{{ photo.caption | default: '' }}",
+        location: "{{ photo.location | default: '' }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+];
+
+function openLightbox(index) {
+    currentPhotoIndex = index;
+    document.getElementById('lightbox').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    showPhoto(index);
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function showPhoto(index) {
+    const photo = photos[index];
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxLocation = document.getElementById('lightbox-location');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    
+    lightboxImage.src = photo.image;
+    lightboxImage.alt = photo.caption || '照片';
+    lightboxCaption.textContent = photo.caption || '';
+    lightboxLocation.textContent = photo.location ? `📍 ${photo.location}` : '';
+    lightboxCounter.textContent = `${index + 1} / ${photos.length}`;
+    
+    // 显示/隐藏导航按钮
+    document.querySelector('.lightbox-prev').style.display = index > 0 ? 'block' : 'none';
+    document.querySelector('.lightbox-next').style.display = index < photos.length - 1 ? 'block' : 'none';
+}
+
+function nextPhoto() {
+    if (currentPhotoIndex < photos.length - 1) {
+        currentPhotoIndex++;
+        showPhoto(currentPhotoIndex);
+    }
+}
+
+function prevPhoto() {
+    if (currentPhotoIndex > 0) {
+        currentPhotoIndex--;
+        showPhoto(currentPhotoIndex);
+    }
+}
+
+// 键盘导航
+document.addEventListener('keydown', function(e) {
+    if (document.getElementById('lightbox').style.display === 'block') {
+        switch(e.key) {
+            case 'Escape':
+                closeLightbox();
+                break;
+            case 'ArrowLeft':
+                prevPhoto();
+                break;
+            case 'ArrowRight':
+                nextPhoto();
+                break;
+        }
+    }
+});
+
+// 点击背景关闭灯箱
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeLightbox();
+    }
+});
+</script>

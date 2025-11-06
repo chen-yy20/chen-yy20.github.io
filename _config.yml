@@ -10,7 +10,8 @@ highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-paginate
-  - jekyll-imagemagick
+  # 移除这行，因为 jekyll-imagemagick 不是标准插件
+  # - jekyll-imagemagick
 
 # Pagination
 paginate: 10
@@ -18,9 +19,9 @@ paginate_path: "/page/:num/"
 
 # Collections
 collections:
-  posts:
+  photo_albums:
     output: true
-    permalink: /:year/:month/:day/:title/
+    permalink: /photography/:name/
 
 # Exclude files
 exclude:
@@ -31,9 +32,21 @@ exclude:
   - .gitignore
 
 # Google Analytics
-google_analytics: G-4H97N6X3TM  # 替换为你的测量ID
+google_analytics: G-4H97N6X3TM
 
-# 图片相关
+# 图片相关设置
 image_path: "assets/images"
-image_optimization: true
 
+# 默认配置
+defaults:
+  - scope:
+      path: ""
+      type: "photo_albums"
+    values:
+      layout: "album"
+  # 为文章添加默认布局
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
