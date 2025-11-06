@@ -6,7 +6,7 @@ date: 2025-09-28
 photos:
   - image: "/assets/images/albums/hulunbel-2025/9-28-俯瞰.JPG"
     caption: "俯瞰"
-    location: "科尔沁沙地"
+    location: "额尔古纳河"
   - image: "/assets/images/albums/hulunbel-2025/9-30-根白.JPG"
     caption: "根白线上，探出头去"
     location: "根白公路"
