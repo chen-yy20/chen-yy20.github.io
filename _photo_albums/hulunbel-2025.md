@@ -7,7 +7,7 @@ photos:
   - image: "/assets/images/albums/hulunbel-2025/9-28-俯瞰.webp"
     caption: "俯瞰"
     location: "额尔古纳河"
-  - image: "/assets/images/albums/hulunbel-2025/9-29-根河.webp"
+  - image: "/assets/images/albums/hulunbel-2025/9-29-根河2.webp"
     caption: "在中国冷极第一次抚摸夜幕星空，感受宇宙震撼人心的力量。"
     location: "根河"
   - image: "/assets/images/albums/hulunbel-2025/9-30-根白.webp"
