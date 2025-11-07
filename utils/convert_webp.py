@@ -5,8 +5,31 @@ from pathlib import Path
 from tqdm import tqdm
 
 def convert_to_webp(source_path, output_path, quality=80):
-    """将单个图片转换为webp格式"""
+    """将单个图片转换为webp格式，保持原始方向"""
+    # 打开图片并保持方向
     image = Image.open(source_path)
+    
+    # 获取EXIF数据
+    try:
+        exif = image.getexif()
+        # 获取方向信息
+        orientation = exif.get(274)  # 274 是方向标签的ID
+        
+        # 根据方向进行旋转
+        if orientation:
+            ORIENTATION_ROTATE_180 = 3
+            ORIENTATION_ROTATE_90 = 6
+            ORIENTATION_ROTATE_270 = 8
+            
+            if orientation == ORIENTATION_ROTATE_180:
+                image = image.rotate(180, expand=True)
+            elif orientation == ORIENTATION_ROTATE_90:
+                image = image.rotate(270, expand=True)
+            elif orientation == ORIENTATION_ROTATE_270:
+                image = image.rotate(90, expand=True)
+    except (AttributeError, KeyError, IndexError):
+        # 没有EXIF数据，保持原样
+        pass
     
     # 如果图片是RGBA模式但没有实际的透明通道，转换为RGB
     if image.mode == 'RGBA' and not has_transparency(image):
