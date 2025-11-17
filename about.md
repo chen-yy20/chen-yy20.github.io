@@ -6,7 +6,7 @@ title: 关于我
 # 关于我
 
 {% include image.html 
-   path="general/me.png" 
+   path="general/me.webp" 
    alt="about" 
    class="image-small" 
    style="max-width:180px" %}
